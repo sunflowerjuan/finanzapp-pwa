@@ -1,27 +1,29 @@
-const CACHE_NAME = "finanzapp-v3";
-const OFFLINE_PAGE = "/src/pages/offline.html";
+const CACHE_NAME = "finanzapp-v4";
+const BASE_PATH = new URL("./", self.location).pathname;
+const toBasePath = (path) => new URL(path, self.location).pathname;
+const OFFLINE_PAGE = toBasePath("src/pages/offline.html");
 
 const APP_SHELL_FILES = [
-  "/",
-  "/index.html",
-  "/manifest.json",
-  "/src/css/style.css",
-  "/src/css/offline.css",
-  "/src/js/app.js",
-  "/src/pages/offline.html",
-  "/src/img/icons/favicon.ico",
-  "/src/img/icons/favicon-16x16.png",
-  "/src/img/icons/favicon-32x32.png",
-  "/src/img/icons/favicon-48x48.png",
-  "/src/img/icons/favicon-64x64.png",
-  "/src/img/icons-ios/apple-touch-icon-120x120.png",
-  "/src/img/icons-ios/apple-touch-icon-152x152.png",
-  "/src/img/icons-ios/apple-touch-icon-167x167.png",
-  "/src/img/icons-ios/apple-touch-icon-180x180.png",
-  "/src/img/icons/icon-192.png",
-  "/src/img/icons/icon-512.png",
-  "/src/img/icons/icon-maskable-512.png",
-  "/src/img/finanzapp.png",
+  BASE_PATH,
+  toBasePath("index.html"),
+  toBasePath("manifest.json"),
+  toBasePath("src/css/style.css"),
+  toBasePath("src/css/offline.css"),
+  toBasePath("src/js/app.js"),
+  toBasePath("src/pages/offline.html"),
+  toBasePath("src/img/icons/favicon.ico"),
+  toBasePath("src/img/icons/favicon-16x16.png"),
+  toBasePath("src/img/icons/favicon-32x32.png"),
+  toBasePath("src/img/icons/favicon-48x48.png"),
+  toBasePath("src/img/icons/favicon-64x64.png"),
+  toBasePath("src/img/icons-ios/apple-touch-icon-120x120.png"),
+  toBasePath("src/img/icons-ios/apple-touch-icon-152x152.png"),
+  toBasePath("src/img/icons-ios/apple-touch-icon-167x167.png"),
+  toBasePath("src/img/icons-ios/apple-touch-icon-180x180.png"),
+  toBasePath("src/img/icons/icon-192.png"),
+  toBasePath("src/img/icons/icon-512.png"),
+  toBasePath("src/img/icons/icon-maskable-512.png"),
+  toBasePath("src/img/finanzapp.png"),
 ];
 
 // INSTALL guardar App Shell al instalar el SW

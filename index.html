@@ -259,8 +259,9 @@
   <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
+        const swUrl = new URL("sw.js", window.location.href);
         navigator.serviceWorker
-          .register("/sw.js")
+          .register(swUrl.pathname)
           .then((r) => console.log("[SW] Registrado:", r.scope))
           .catch((e) => console.error("[SW] Error:", e));
       });
