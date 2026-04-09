@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f8ede3" />
+  <meta
+    name="description"
+    content="FinanZapp - Controla tus gastos, presupuestos y reportes financieros."
+  />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/x-icon" href="src/img/icons/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="16x16" href="src/img/icons/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="src/img/icons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="src/img/icons/favicon-48x48.png" />
+  <link rel="icon" type="image/png" sizes="64x64" href="src/img/icons/favicon-64x64.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="src/img/icons-ios/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="src/img/icons-ios/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="167x167" href="src/img/icons-ios/apple-touch-icon-167x167.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="src/img/icons-ios/apple-touch-icon-180x180.png" />
+  <link rel="stylesheet" href="src/css/style.css" />
+  <title>FinanZapp - Control Financiero</title>
+</head>
+<body>
+  <div id="app">
+    <nav class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <img
+          class="logo-bolt"
+          src="src/img/finanzapp.png"
+          alt="Logo de FinanZapp"
+          width="48"
+          height="48"
+        />
+        <div class="brand-copy">
+          <span class="logo-text">Finan<span>Zapp</span></span>
+          <span class="logo-caption">Control financiero personal</span>
+        </div>
+      </div>
+
+      <ul class="nav-links">
+        <li>
+          <a href="#" class="nav-link active" data-page="dashboard">
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" data-page="gastos">
+            <span>Gastos</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" data-page="presupuesto">
+            <span>Presupuesto</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" data-page="reportes">
+            <span>Reportes</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <div class="offline-badge" id="offlineBadge" style="display: none">
+          Sin conexión
+        </div>
+      </div>
+    </nav>
+
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menú">☰</button>
+      <span class="topbar-title">FinanZapp</span>
+      <button class="add-btn-mobile" id="addBtnMobile" aria-label="Nuevo gasto">+</button>
+    </header>
+
+    <main class="main-content" id="mainContent">
+      <section class="page active" id="page-dashboard">
+        <div class="page-header">
+          <div>
+            <h1>Dashboard</h1>
+            <p class="page-subtitle">
+              Un resumen claro de tu movimiento financiero actual.
+            </p>
+          </div>
+          <span class="month-label" id="dashMonth"></span>
+        </div>
+
+        <div class="summary-cards">
+          <div class="card card-income">
+            <div class="card-label">Ingresos del mes</div>
+            <div class="card-value" id="cardIncome">$0</div>
+          </div>
+          <div class="card card-spent">
+            <div class="card-label">Total gastado</div>
+            <div class="card-value" id="cardSpent">$0</div>
+          </div>
+          <div class="card card-balance">
+            <div class="card-label">Balance</div>
+            <div class="card-value" id="cardBalance">$0</div>
+          </div>
+        </div>
+
+        <div class="section-title">Presupuesto vs Gasto</div>
+        <div class="budget-bars" id="budgetBars"></div>
+      </section>
+
+      <section class="page" id="page-gastos">
+        <div class="page-header">
+          <div>
+            <h1>Gastos</h1>
+            <p class="page-subtitle">
+              Consulta, filtra y edita tus movimientos con más claridad.
+            </p>
+          </div>
+          <button class="btn-primary" id="addExpenseBtn">+ Nuevo gasto</button>
+        </div>
+
+        <div class="filter-bar">
+          <select id="filterMonth" class="select-input"></select>
+          <select id="filterCat" class="select-input">
+            <option value="">Todas las categorías</option>
+          </select>
+        </div>
+        <div class="expense-list" id="expenseList"></div>
+      </section>
+
+      <section class="page" id="page-presupuesto">
+        <div class="page-header">
+          <div>
+            <h1>Presupuesto</h1>
+            <p class="page-subtitle">
+              Define límites sencillos para mantener el control de cada categoría.
+            </p>
+          </div>
+        </div>
+
+        <div class="budget-form-card">
+          <h3>Ingreso mensual</h3>
+          <div class="input-row">
+            <input
+              type="number"
+              id="incomeInput"
+              class="text-input"
+              placeholder="Ej: 3.000.000"
+              min="0"
+            />
+            <button class="btn-primary" id="saveIncomeBtn">Guardar</button>
+          </div>
+        </div>
+
+        <div class="section-title">Límites por categoría</div>
+        <div class="cat-budget-list" id="catBudgetList"></div>
+      </section>
+
+      <section class="page" id="page-reportes">
+        <div class="page-header">
+          <div>
+            <h1>Reportes</h1>
+            <p class="page-subtitle">
+              Visualiza tendencias con una presentación más limpia y profesional.
+            </p>
+          </div>
+        </div>
+
+        <div class="report-controls">
+          <label>Ver por:</label>
+          <select id="reportPeriodType" class="select-input">
+            <option value="month">Mes</option>
+            <option value="week">Semana</option>
+          </select>
+          <select id="reportPeriod" class="select-input"></select>
+          <button class="btn-pdf" id="exportPdfBtn">
+            <span>↓</span>
+            <span>Exportar PDF</span>
+          </button>
+        </div>
+
+        <div class="chart-card" id="pieCard">
+          <h3>Distribución por categoría</h3>
+          <div id="pieChart"></div>
+        </div>
+
+        <div class="chart-card" id="barCard">
+          <h3>Presupuesto vs Gasto real</h3>
+          <div id="barChart"></div>
+        </div>
+
+        <div class="section-title">Resumen del período</div>
+        <div class="monthly-summary" id="monthlySummary"></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modalTitle">Nuevo Gasto</h2>
+        <button class="close-btn" id="closeModal" aria-label="Cerrar">✕</button>
+      </div>
+      <form id="expenseForm" novalidate>
+        <div class="form-group">
+          <label>Descripción</label>
+          <input
+            type="text"
+            id="expDesc"
+            class="text-input"
+            placeholder="¿En qué gastaste?"
+            required
+            maxlength="80"
+          />
+          <span class="error-msg" id="errDesc"></span>
+        </div>
+        <div class="form-group">
+          <label>Monto ($)</label>
+          <input
+            type="number"
+            id="expAmount"
+            class="text-input"
+            placeholder="0"
+            min="1"
+            required
+          />
+          <span class="error-msg" id="errAmount"></span>
+        </div>
+        <div class="form-group">
+          <label>Categoría</label>
+          <select id="expCat" class="select-input" required>
+            <option value="">Seleccionar</option>
+          </select>
+          <span class="error-msg" id="errCat"></span>
+        </div>
+        <div class="form-group">
+          <label>Fecha</label>
+          <input type="date" id="expDate" class="text-input" required />
+          <span class="error-msg" id="errDate"></span>
+        </div>
+        <div class="form-group">
+          <label>Nota (opcional)</label>
+          <input
+            type="text"
+            id="expNote"
+            class="text-input"
+            placeholder="Descripción adicional"
+            maxlength="120"
+          />
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" id="cancelModal">Cancelar</button>
+          <button type="submit" class="btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="src/js/app.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker
+          .register("/sw.js")
+          .then((r) => console.log("[SW] Registrado:", r.scope))
+          .catch((e) => console.error("[SW] Error:", e));
+      });
+    }
+  </script>
+</body>
+</html>
